@@ -61,34 +61,51 @@ class trigger_light(Resource):
 		#result = {'data':dict(zip(sz.value.StatusZeroValue))}
 		return jsonify(sz.value)
 
+class all_on(Resource):
+	def get(self):
+		sz.one.green.on()
+		sz.one.red.on()
+		sz.two.green.on()
+		sz.two.red.on()
+		sz.three.red.on()
+		sz.three.green.on()
+		return jsonify(sz.value)
+class all_off(Resource):
+	def get(self):
+		sz.one.green.off()
+		sz.one.red.off()
+		sz.two.green.off()
+		sz.two.red.off()
+		sz.three.green.off()
+		sz.three.red.off()
+		return jsonify(sz.value)
 class red_on(Resource):
 	def get(self):
 		sz.one.red.on()
 		sz.two.red.on()
 		sz.three.red.on()
-		result = {'data':dict(zip(sz.value))}
-		return jsonify(result)
+		return jsonify(sz.value)
 class red_off(Resource):
 	def get(self):
 		sz.one.red.off()
 		sz.two.red.off()
 		sz.three.red.off()
-		result = {'data':dict(zip(sz.value))}
-		return jsonify(result)
+		return jsonify(sz.value)
 class green_on(Resource):
 	def get(self):
 		sz.one.green.on()
 		sz.two.green.on()
 		sz.three.green.on()
-		result = {'data':dict(zip(sz.value))}
-		return jsonify(result)
+		return jsonify(sz.value)
 class green_off(Resource):
 	def get(self):
 		sz.one.green.off()
 		sz.two.green.off()
 		sz.three.green.off()
-		result= {'data':dict(zip(sz.value))}
+		return sz.value
 
+api.add_resource(all_on, '/on') 
+api.add_resource(all_off, '/off')
 api.add_resource(red_on, '/red/on') # Route_1
 api.add_resource(red_off, '/red/0ff') # Route_2
 api.add_resource(green_on, '/green/on') # Route_3
