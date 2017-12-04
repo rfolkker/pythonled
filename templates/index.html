@@ -1,0 +1,23 @@
+<!-- index.html-->
+
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+{% block body %}
+<div class="jumbotron">
+  <h1>Light Status</h1>
+  <p class="lead"><span id="LightOne" name="LightOne"></span></p>
+  <p class="lead"><span id="LightTwo" name="LightTwo"></span></p>
+  <p class="lead"><span id="LightThree" name="LightThree"></span></p>
+</div>
+<script type=text/javascript src="{{
+  url_for('static', filename='jquery.min.js') }}"></script>
+<script type=text/javascript>
+  $(document).ready(function () {
+    $.get("/red/off",function(data) {
+      $("#LightOne").text(data.data[0].one.red);
+      $("#LightTwo").text(data.data[0].two.red);
+      $("#LightThree").text(data.data[0].three.red);
+    });
+  });
+</script>
+{% endblock %}

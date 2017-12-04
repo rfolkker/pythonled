@@ -1,7 +1,6 @@
 #Python LED Web Handler
 from flask import Flask, request, render_template
-from flask_restful import Resource, Api, reqparse
-from sqlalchemy import create_engine
+from flask_restful import Resource, Api
 from json import dumps
 from flask_jsonpify import jsonify
 from gpiozero import StatusZero
@@ -12,10 +11,6 @@ sz.off() # initialize off
 
 app = Flask(__name__)
 api = Api(app)
-
-parser = reqparse.RequestParser()
-parser.add_argument('index')
-parser.add_argument('color')
 
 class InvalidUsage(Exception):
 	status_code = 400
@@ -49,21 +44,22 @@ class trigger_light(Resource):
 		if color=='red':
 			light_color=light_index.red
 		elif color=='green':
-			light_color_light_index.green
+			light_color=light_index.green
 		else:
 			raise InvalidUsage("Invalid color value", \
 				status_code=422)
 
 		if  status=='on':
 			light_status=light_color.on
-		elif status='off':
+		elif status=='off':
 			light_status=light_color.off
 		else:
 			raise InvalidUsage("Invalid Light status", \
 				status_code=422)
 		light_status()
-		result = {'data':dict(zip(sz.value))}
-		return jsonify(result)
+		print(sz.value)
+		#result = {'data':dict(zip(sz.value.StatusZeroValue))}
+		return jsonify(sz.value)
 
 class red_on(Resource):
 	def get(self):
