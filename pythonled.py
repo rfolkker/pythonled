@@ -107,7 +107,7 @@ class green_off(Resource):
 api.add_resource(all_on, '/on') 
 api.add_resource(all_off, '/off')
 api.add_resource(red_on, '/red/on') # Route_1
-api.add_resource(red_off, '/red/0ff') # Route_2
+api.add_resource(red_off, '/red/off') # Route_2
 api.add_resource(green_on, '/green/on') # Route_3
 api.add_resource(green_off, '/green/off') # Route_4
 api.add_resource(trigger_light, '/<index>/<color>/<status>') #Dynamic route
