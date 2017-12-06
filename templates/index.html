@@ -5,19 +5,89 @@
 {% block body %}
 <div class="jumbotron">
   <h1>Light Status</h1>
-  <p class="lead"><span id="LightOne" name="LightOne"></span></p>
-  <p class="lead"><span id="LightTwo" name="LightTwo"></span></p>
-  <p class="lead"><span id="LightThree" name="LightThree"></span></p>
+  <p class="lead">
+    <img width="32" height="32" onclick="switchLights('#BlackLightOne');" id="BlackLightOne" name="BlackLightOne" src="static/Black.png">
+    <img width="32" height="32" onclick="switchLights('#GreenLightOne');" id="GreenLightOne" name="GreenLightOne" src="static/Green.png">
+    <img width="32" height="32" onclick="switchLights('#RedLightOne');" id="RedLightOne" name="RedLightOne" src="static/Red.png">
+  </p>
+  <p class="lead">
+    <img width="32" height="32" onclick="switchLights('#BlackLightTwo');" id="GreenLightTwo" name="GreenLightTwo" src="static/Black.png">
+    <img width="32" height="32" onclick="switchLights('#GreenLightTwo');" id="GreenLightTwo" name="GreenLightTwo" src="static/Green.png">
+    <img width="32" height="32" onclick="switchLights('#RedLightTwo');" id="RedLightTwo" name="RedLightTwo" src="static/Red.png">
+  </p>
+  <p class="lead">
+    <img width="32" height="32" onclick="switchLights('#BlackLightThree');" id="BlackLightThree" name="BlackLightThree" src="static/Black.png">
+    <img width="32" height="32" onclick="switchLights('#GreenLightThree');" id="GreenLightThree" name="GreenLightThree" src="static/Green.png">
+    <img width="32" height="32" onclick="switchLights('#RedLightThree');" id="RedLightThree" name="RedLightThree" src="static/Red.png">
+  </p>
 </div>
 <script type=text/javascript src="{{
   url_for('static', filename='jquery.min.js') }}"></script>
 <script type=text/javascript>
-  $(document).ready(function () {
-    $.get("/red/off",function(data) {
-      $("#LightOne").text(data.data[0].one.red);
-      $("#LightTwo").text(data.data[0].two.red);
-      $("#LightThree").text(data.data[0].three.red);
+function switchLights(colorOn){
+  var button=$(colorOn)[0],
+    result={},
+    index=1;
+  
+  if(colorOn.includes("One")){
+    index=1;
+  }
+  if(colorOn.includes("Two")){
+    index=2;
+  }
+  if(colorOn.includes("Three")){
+    index=3;
+  }
+  if(colorOn.includes("Black")){
+    $.get("/"+index+"/green/off",function(data){
     });
+    $.get("/"+index+"/red/off",function(data){
+    });
+  }
+
+  if(colorOn.includes("Green")){
+    $.get("/"+index+"/green/on",function(data){
+    });
+  }
+
+  if(colorOn.includes("Red")){
+    $.get("/"+index+"/red/on",function(data){
+    });
+  }
+}
+  
+$(document).ready(function () {
+  $.get("/red/on",function(data) {
+/*    if(data.one.red){
+      $("#LightOne")[0].src="static/Red.png";
+    }
+    else if(data.one.green){
+      $("#LightOne")[0].src="static/Black.png";
+    }
+    else{
+      $("#LightOne")[0].src="static/Black.png";
+    }
+
+    if(data.two.red){
+      $("#LightTwo")[0].src="static/Red.png";
+    }
+    else if(data.two.green){
+      $("#LightTwo")[0].src="static/Green.png";
+    }
+    else{
+      $("#LightTwo")[0].src="static/Black.png";
+    }
+
+    if(data.three.red){
+      $("#LightThree")[0].src="static/Red.png";
+    }
+    else if(data.three.green){
+      $("#LightThree")[0].src="static/Green.png";
+    }
+    else{
+      $("#LightThree")[0].src="static/Black.png";
+    }*/
   });
+});
 </script>
 {% endblock %}

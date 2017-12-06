@@ -102,8 +102,13 @@ class green_off(Resource):
 		sz.one.green.off()
 		sz.two.green.off()
 		sz.three.green.off()
-		return sz.value
+		return jsonify(sz.value)
+class all_status(Resource):
+	def get(self):
+		return jsonify(sz.value)
+   
 
+api.add_resource(all_status, "/status")
 api.add_resource(all_on, '/on') 
 api.add_resource(all_off, '/off')
 api.add_resource(red_on, '/red/on') # Route_1
@@ -124,4 +129,4 @@ def index():
 	return render_template("index.html")
 
 if __name__ == '__main__':
-	app.run(port='5555')
+	app.run(host='0.0.0.0', port='5555')
