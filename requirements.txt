@@ -9,7 +9,7 @@ Flask-RESTful==0.3.6
 gpiozero==1.4.0
 idna==2.2
 itsdangerous==0.24
-Jinja2==2.8
+Jinja2==3.1.6
 MarkupSafe==0.23
 pyasn1==0.1.9
 pyinotify==0.9.6
